@@ -1,0 +1,39 @@
+.today-stats-container {
+    background-color: #aeeac4;
+    min-height: 80vh;
+    color: #ffffff;
+    font-weight: bolder;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    text-align: left;
+    align-items: center;
+}
+
+.today-stats-container * {
+    flex-basis: 35%;
+    font-size: 22px;
+}
+
+@media(max-width: 1024px) {
+    .today-stats-container {
+        justify-content: center;
+        flex-direction: column;
+    }
+    .today-stats-container *{
+        font-size: 20px;
+    }
+}
+
+@media(max-width: 640px) {
+    .today-stats-container {
+        flex-direction: column;
+        justify-content: center;
+    }
+    .today-stats-container *{
+        font-size: 18px;
+    }
+}

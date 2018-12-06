@@ -1,0 +1,53 @@
+.year-stats-container {
+    background-color: #ff7c7c;
+    min-height: 40vh;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: left;
+    align-items: center;
+}
+
+.year-stats-container h2 {
+    font-size: 40px;
+}
+
+.year-stats-container h3{
+    font-size: 26px;
+}
+
+.year-stats-container .year-stats {
+    flex-basis: 90%;
+    display: flex;
+    flex-direction: column;
+}
+
+.year-stats-container .year-stats div {
+    flex-basis: 50%;
+}
+
+@media(max-width:1024px) {
+    .year-stats-container h2 {
+        font-size: 32px;
+    }
+    .year-stats-container h3 {
+        font-size: 20px;
+        
+    }
+    .year-stats-container .year-stats div {
+        flex-basis: 50%;
+    }
+}
+
+@media(max-width:640px){
+    .year-stats-container h2 {
+        flex-basis: 10%;
+        font-size: 24px;
+    }
+    .year-stats-container h3 {
+        font-size: 18px;
+        
+    }
+}
