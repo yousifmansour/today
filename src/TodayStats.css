@@ -1,21 +1,22 @@
 .today-stats-container {
-    background-color: #aeeac4;
+    background-color: #8ce9ae;
     min-height: 80vh;
     color: #ffffff;
-    font-weight: bolder;
-    padding-left: 10px;
-    padding-right: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     flex-wrap: wrap;
     text-align: left;
     align-items: center;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    margin-top: 5/* padding-left: 10px;
+    padding-right: 10px; */px;
 }
 
 .today-stats-container * {
     flex-basis: 35%;
-    font-size: 22px;
+    font-size: 26px;
 }
 
 @media(max-width: 1024px) {
@@ -24,7 +25,7 @@
         flex-direction: column;
     }
     .today-stats-container *{
-        font-size: 20px;
+        font-size: 22px;
     }
 }
 

@@ -6,7 +6,7 @@ class ThisInstance extends React.Component {
     return (
       <div className='this-instance-container'>
         <h1>This Instance</h1>
-        <h2>can be uniquly identified as: 20181206121235</h2>
+        <h2>can be uniquly identified as: {this.props.thisInstance}</h2>
       </div>
     );
   }

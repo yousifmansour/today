@@ -11,6 +11,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     animation: come-up-and-fade-in 0.5s linear forwards;
+    padding: 10px;    
 }
 
 .App {
