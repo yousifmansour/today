@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ThisInstance from './ThisInstance.js';
 import YearStats from './YearStats.js'
-import TodayStats from './TodayStats.js';
+import RemainingThisYear from './RemainingThisYear.js';
 
 import './App.css';
 
@@ -36,7 +36,7 @@ class App extends Component {
   componentDidMount() {
     this.setup();
     this.update();
-    let intervalID = setInterval(() => this.update(), 1000);
+    setInterval(() => this.update(), 1000);
   }
 
   setup() {
@@ -60,14 +60,14 @@ class App extends Component {
 
   update() {
     const date = new Date();
-    const thisInstance = `${date.getFullYear()}${date.getMonth()}${date.getDay()}${date.getHours()}${date.getMinutes()}${date.getSeconds()}`;
+    const thisInstance = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}${date.getHours()}${date.getMinutes()}${date.getSeconds()}`;
     if (date.getFullYear() !== this.state.currentYearStats.year) 
       this.setState();
     
     // 30 days has september, april, june, and november. all the rest have 31. save
     // february, with 28 days clear, and 29 each leap year
 
-    const months = 12 - date.getMonth();
+    const months = 11 - date.getMonth();
     let daysInMonth = 0;
     switch (date.getMonth()) {
       case 9:
@@ -81,10 +81,12 @@ class App extends Component {
         this.leapYear(date.getFullYear())
           ? daysInMonth = 29
           : daysInMonth = 28
+        break;
       default:
         return 2;
     }
-    const days = daysInMonth - date.getDay();
+
+    const days = daysInMonth - date.getDate();
     const hours = days * 24 - date.getHours();
     const minutes = hours * 60 - date.getMinutes();
     const seconds = minutes * 60 - date.getSeconds();
@@ -101,15 +103,16 @@ class App extends Component {
     });
   }
   leapYear(year) {
-    return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
+    return ((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0);
   }
 
   render() {
     return (
       <div className="App">
         <ThisInstance thisInstance={this.state.thisInstance}/>
-        <YearStats currentYearStats={this.state.currentYearStats}/>
-        <TodayStats leftThisYear={this.state.leftThisYear}/>
+        <RemainingThisYear leftThisYear={this.state.leftThisYear}/>
+        <YearStats currentYearStats={this.state.currentYearStats}/> {/* // day stats
+        // remaining this day */}
       </div>
     );
   }

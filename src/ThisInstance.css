@@ -8,12 +8,19 @@
     border-radius: 10px;
     margin-bottom: 5px;
     margin-top: 5px;
+    animation: animate-instance-background 10s linear infinite;
+}
+
+@keyframes animate-instance-background{
+    50%{
+        background-color: #baf9ff; 
+    }
 }
 
 .this-instance-container h1 {
     flex-basis: 100%;
     font-size: 90px;
-    animation: 2s pulse linear infinite;
+    animation: 3s pulse linear infinite;
 }
 
 .this-instance-container h2 {
