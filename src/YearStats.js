@@ -12,7 +12,7 @@ const YearStats = ({currentYearStats}) => {
   } = currentYearStats;
   return (
     <div className='year-stats-container'>
-      <h2>{year}&nbsp;STATS
+      <h2>{year}&nbsp;
       </h2>
       <div>
         <h3>

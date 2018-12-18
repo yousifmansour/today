@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ThisInstance from './ThisInstance.js';
-import YearStats from './YearStats.js'
-import RemainingThisYear from './RemainingThisYear.js';
+import LeftThisYear from './LeftThisYear.js';
+import LeftThisDay from './LeftThisDay.js';
 
 import './App.css';
 
@@ -10,13 +10,13 @@ class App extends Component {
     super(props);
     this.state = {
       thisInstance: 0,
-      currentYearStats: {
+      currentYearTotal: {
         year: 0,
-        seconds: 0,
-        minutes: 0,
-        hours: 0,
-        days: 0,
-        months: 12
+        totalSeconds: 0,
+        totalMinutes: 0,
+        totalHours: 0,
+        totalDays: 0,
+        totalMonths: 12
       },
       leftThisYear: {
         seconds: 0,
@@ -24,46 +24,50 @@ class App extends Component {
         hours: 0,
         days: 0,
         months: 0
+      },
+      leftThisDay: {
+        seconds: 0,
+        minutes: 0,
+        hours: 0
       }
     };
-
-    this.update = this
-      .update
-      .bind(this);
-
   }
 
   componentDidMount() {
     this.setup();
-    this.update();
-    setInterval(() => this.update(), 1000);
+    this.updateYear();
+    this.updateDay();
+    setInterval(() => {
+      this.updateYear();
+      this.updateDay();
+    }, 1000);
   }
 
   setup() {
     const year = new Date().getFullYear();
-    const days = this.leapYear(year)
+    const totalDays = this.leapYear(year)
       ? 366
       : 365;
-    const hours = days * 24;
-    const minutes = hours * 60;
-    const seconds = minutes * 60;
-    const currentYearStats = {
+    const totalHours = totalDays * 24;
+    const totalMinutes = totalHours * 60;
+    const totalSeconds = totalMinutes * 60;
+    const currentYearTotal = {
       year,
-      months: 12,
-      days,
-      hours,
-      minutes,
-      seconds
+      totalMonths: 12,
+      totalDays,
+      totalHours,
+      totalMinutes,
+      totalSeconds
     };
-    this.setState({currentYearStats});
+    this.setState({currentYearTotal});
   }
 
-  update() {
+  updateYear() {
+    // updates year and current instatnce
+
     const date = new Date();
     const thisInstance = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}${date.getHours()}${date.getMinutes()}${date.getSeconds()}`;
-    if (date.getFullYear() !== this.state.currentYearStats.year) 
-      this.setState();
-    
+    // if (date.getFullYear() !== this.state.currentYearTotal.year) this.setState();
     // 30 days has september, april, june, and november. all the rest have 31. save
     // february, with 28 days clear, and 29 each leap year
 
@@ -102,17 +106,32 @@ class App extends Component {
       }
     });
   }
+
   leapYear(year) {
     return ((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0);
+  }
+
+  updateDay() {
+    const date = new Date();
+    const hours = 24 - date.getHours() - 1;
+    const minutes = hours * 60 + (60 - date.getMinutes());
+    const seconds = minutes * 60 - date.getSeconds();
+    const leftThisDay = {
+      hours,
+      minutes,
+      seconds
+    };
+    this.setState({leftThisDay});
   }
 
   render() {
     return (
       <div className="App">
         <ThisInstance thisInstance={this.state.thisInstance}/>
-        <RemainingThisYear leftThisYear={this.state.leftThisYear}/>
-        <YearStats currentYearStats={this.state.currentYearStats}/> {/* // day stats
-        // remaining this day */}
+        <LeftThisDay leftThisDay={this.state.leftThisDay}/>
+        <LeftThisYear
+          leftThisYear={this.state.leftThisYear}
+          currentYearTotal={this.state.currentYearTotal}/>
       </div>
     );
   }
