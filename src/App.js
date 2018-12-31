@@ -90,10 +90,10 @@ class App extends Component {
                 daysInMonth = 31;
         }
 
-        const days = daysInMonth - date.getDate() + 1;
+        const days = daysInMonth - date.getDate();
 
-        const hours = (days * 24) - date.getHours() - 1;
-        const minutes = (hours * 60) - date.getMinutes();
+        const hours = ((days+1) * 24) - date.getHours() - 1;
+        const minutes = hours * 60 + (60 - date.getMinutes());
         const seconds = (minutes * 60) - date.getSeconds();
 
         this.setState({
