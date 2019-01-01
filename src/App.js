@@ -72,27 +72,27 @@ class App extends Component {
         // february, with 28 days clear, and 29 each leap year
 
         const months = 11 - date.getMonth();
-        let daysInMonth = 31;
-        switch (date.getMonth() + 1) {
-            case 9:
-            case 4:
-            case 6:
-            case 11:
-            case 10:
-                daysInMonth = 30;
-                break;
-            case 2:
-                this.leapYear(date.getFullYear())
-                    ? daysInMonth = 29
-                    : daysInMonth = 28
-                break;
-            default:
-                daysInMonth = 31;
-        }
 
-        const days = daysInMonth - date.getDate();
+        let daysPassed = 0;
 
-        const hours = ((days+1) * 24) - date.getHours() - 1;
+        for (let i = 1; i < date.getMonth() + 1; i++) {
+            if ([9, 4, 6, 11, 10].includes(i)) 
+                daysPassed += 30;
+            else if (i === 2) {
+                daysPassed += this.leapYear(date.getFullYear())
+                    ? 29
+                    : 28;
+            } else 
+                daysPassed += 31;
+            }
+        
+        daysPassed += date.getDate();
+
+        const days = this.leapYear(date.getFullYear())
+            ? 366 - daysPassed
+            : 365 - daysPassed;
+
+        const hours = ((days + 1) * 24) - date.getHours() - 1;
         const minutes = hours * 60 + (60 - date.getMinutes());
         const seconds = (minutes * 60) - date.getSeconds();
 
